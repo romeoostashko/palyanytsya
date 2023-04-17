@@ -10,7 +10,7 @@ module.exports = {
           components: './src/components',
           screens: './src/screens',
           asyncStorage: './src/asyncStorage',
-          stack: './src/navigation',
+          navigation: './src/navigation',
           store: './src/store',
           hooks: './src/hooks',
           theme: './src/theme',

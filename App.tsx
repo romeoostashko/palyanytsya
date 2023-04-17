@@ -1,11 +1,8 @@
 import {View, Text, SafeAreaView} from 'react-native';
+import {StackMain} from 'navigation';
 
 function App(): JSX.Element {
-  return (
-    <SafeAreaView>
-      <Text>Hiii</Text>
-    </SafeAreaView>
-  );
+  return <StackMain />;
 }
 
 export default App;
