@@ -1,0 +1,18 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "src": ["./"],
+      "components": ["./src/components"],
+      "screens": ["./src/screens"],
+      "asyncStorage": ["./src/asyncStorage"],
+      "stack": ["./src/navigation"],
+      "store": ["./src/store"],
+      "hooks": ["./src/hooks"],
+      "theme": ["./src/theme"]
+    }
+  },
+  "tsx": "react"
+}
