@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
-import React from 'react';
+import {useState} from 'react';
+
+import {TouchableOpacity, Text, Pressable} from 'react-native';
 
 interface Props {
   avatar: string;
@@ -9,6 +11,8 @@ interface Props {
   tag: string;
 }
 
+const DESCRIPTION_LENGTH = 180;
+
 export const PostCard = ({
   avatar = 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
   description = 'Description',
@@ -16,6 +20,15 @@ export const PostCard = ({
   time = 'none',
   tag = 'none',
 }: Props) => {
+  const [isShown, setIsShown] = useState(false);
+  const cutDescription = (description: string) => {
+    if (description.length <= DESCRIPTION_LENGTH) {
+      return description;
+    } else {
+      return description?.slice(0, DESCRIPTION_LENGTH) + '...';
+    }
+  };
+
   return (
     <Container>
       <Header>
@@ -32,7 +45,34 @@ export const PostCard = ({
         </Tag>
       </Header>
       <DescriptionBox>
-        <Description>{description}</Description>
+        {!isShown ? (
+          <Description>
+            {cutDescription(description)}
+
+            <Description
+              suppressHighlighting={true}
+              onPress={() => {
+                setIsShown(true);
+                console.log('kkk');
+              }}
+              style={{color: 'blue'}}>
+              Show more
+            </Description>
+          </Description>
+        ) : (
+          <Description>
+            {description}{' '}
+            <Description
+              suppressHighlighting={true}
+              onPress={() => {
+                setIsShown(false);
+                console.log('kkk');
+              }}
+              style={{color: 'blue'}}>
+              Show less
+            </Description>
+          </Description>
+        )}
       </DescriptionBox>
     </Container>
   );
@@ -42,6 +82,7 @@ const Container = styled.View`
   background-color: ${({theme}) => theme.colors.post.bg};
   padding: 18px;
   border-radius: 24px;
+  margin-bottom: 12px;
 `;
 
 const Header = styled.View`
