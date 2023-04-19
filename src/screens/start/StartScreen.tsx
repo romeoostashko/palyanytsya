@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 import {PropsHome} from 'navigation';
@@ -7,7 +8,10 @@ interface Props {
 }
 
 export const StartScreen = ({navigation}: Props) => {
-  navigation.navigate('Home');
+  useEffect(() => {
+    navigation.navigate('Home');
+  }, []);
+
   return (
     <View>
       <Text>Start</Text>

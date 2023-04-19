@@ -14,5 +14,6 @@
       "theme": ["./src/theme"]
     }
   },
-  "tsx": "react"
+  "tsx": "react",
+  "types": ["jest", "styled-components-react-native"]
 }
