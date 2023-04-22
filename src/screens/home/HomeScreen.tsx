@@ -3,7 +3,7 @@ import {useState} from 'react';
 import styled from 'styled-components/native';
 
 import {PropsHome} from 'navigation';
-import {PostCard} from 'components';
+import {PostCard, MainHeader} from 'components';
 
 interface Props {
   navigation: PropsHome;
@@ -27,6 +27,7 @@ export const HomeScreen = ({navigation}: Props) => {
   return (
     <SafeAreaViewContainer>
       <Container>
+        <MainHeader />
         <PostCard
           avatar={post.avatar}
           description={post.description}
@@ -56,9 +57,7 @@ export const HomeScreen = ({navigation}: Props) => {
 const styles = StyleSheet.create({});
 
 const Container = styled.View`
-  background-color: ${({theme}) => theme.background};
   flex: 1;
-  margin: 0 8px 0 8px;
 `;
 
 const SafeAreaViewContainer = styled.SafeAreaView`
