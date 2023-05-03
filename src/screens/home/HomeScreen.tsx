@@ -27,7 +27,7 @@ export const HomeScreen = ({navigation}: Props) => {
   return (
     <SafeAreaViewContainer>
       <Container>
-        <MainHeader />
+        <MainHeader navigation={navigation} />
         <PostCard
           avatar={post.avatar}
           description={post.description}
@@ -47,6 +47,6 @@ const Container = styled.View`
 `;
 
 const SafeAreaViewContainer = styled.SafeAreaView`
-  background-color: ${({theme}) => theme.background};
+  background-color: ${({theme}) => theme.colors.global.bg};
   flex: 1;
 `;

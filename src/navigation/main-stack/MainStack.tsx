@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {HomeScreen, StartScreen} from 'screens';
+import {HomeScreen, StartScreen, NewPostScreen} from 'screens';
 
 import {MainStackParamList} from './types';
 
@@ -14,6 +14,7 @@ const MainStack = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Start" component={StartScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="NewPost" component={NewPostScreen} />
     </Stack.Navigator>
   );
 };

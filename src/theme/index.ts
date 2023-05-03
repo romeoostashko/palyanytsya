@@ -4,7 +4,7 @@ export const darkTheme: DefaultTheme = {
   background: '#141c27',
 
   colors: {
-    global: {bg: '#575967'},
+    global: {bg: '#141c27'},
     post: {bg: '#283544', grayText: '#ddd', color: '#fbfbfb'},
     tag: {bg: '#e8df73'},
     mainHeader: {bg: '#283544'},
@@ -12,10 +12,10 @@ export const darkTheme: DefaultTheme = {
 };
 
 export const lightTheme: DefaultTheme = {
-  background: '#e4edf5',
+  background: '#141c27',
   colors: {
-    global: {bg: '#e4edf5'},
-    post: {bg: '#afc7dd', grayText: '#3f3733', color: '#fbfbfb'},
+    global: {bg: '#141c27'},
+    post: {bg: '#283544', grayText: '#ddd', color: '#fbfbfb'},
     tag: {bg: '#e8df73'},
     mainHeader: {bg: '#283544'},
   },

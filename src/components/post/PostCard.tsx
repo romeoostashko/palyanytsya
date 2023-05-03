@@ -10,9 +10,11 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+
 import {Footer} from './footer';
 
 const {height, width} = Dimensions.get('window');
+const DESCRIPTION_LENGTH = 180;
 
 interface Props {
   avatar: string | null;
@@ -22,8 +24,6 @@ interface Props {
   time: string;
   tag: string;
 }
-
-const DESCRIPTION_LENGTH = 180;
 
 export const PostCard = ({
   avatar = null,
@@ -64,13 +64,13 @@ export const PostCard = ({
 
   const getImageHeight = () => {
     if (imRatio > 1) {
-      console.log('1= ', width / imRatio);
+      //console.log('1= ', width / imRatio);
       return width / imRatio;
     } else if (imRatio < 1 && width > postWidth) {
-      console.log('4= ', width);
+      //console.log('4= ', width);
       return height * 0.5;
     }
-    console.log('44= ', width);
+    // console.log('44= ', width);
     return height * 0.5;
   };
 
