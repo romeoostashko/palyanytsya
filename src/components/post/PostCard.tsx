@@ -1,12 +1,22 @@
 import styled from 'styled-components/native';
 import {useState, useEffect} from 'react';
 import {Avatar} from 'components';
-import {Dimensions, Image} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {Footer} from './footer';
 
-const {height} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
+
 interface Props {
-  avatar: string;
+  avatar: string | null;
+  image: string | null;
   description: string;
   name: string;
   time: string;
@@ -16,14 +26,17 @@ interface Props {
 const DESCRIPTION_LENGTH = 180;
 
 export const PostCard = ({
-  avatar = 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+  avatar = null,
   description = 'Description',
-  name = 'Nono',
+  name = 'NonE',
   time = 'none',
   tag = 'none',
+  image = avatar,
 }: Props) => {
   const [isShown, setIsShown] = useState(false);
-  const [postHeight, setPostHeight] = useState(0);
+  const [postWidth, setPostWidth] = useState(0);
+  const [imRatio, setImRatio] = useState(1);
+
   const cutDescription = (description: string) => {
     if (description.length <= DESCRIPTION_LENGTH) {
       return description;
@@ -33,24 +46,36 @@ export const PostCard = ({
   };
 
   useEffect(() => {
-    Image.getSize(avatar, (w, h) => {
-      console.log(w, h);
-    });
-  }, []);
+    !!image &&
+      Image.getSize(image, (w, h) => {
+        const RATIO = w / h;
+        setImRatio(RATIO);
+        //console.log('w, h ', w, h);
+        //console.log('Screen w, h: ', width, height);
+        console.log('RATIO ', RATIO);
+        //setPostHeight(h);
+        setPostWidth(w);
+      });
+  }, [image]);
 
   const onShow = () => {
     setIsShown(prev => !prev);
   };
 
+  const getImageHeight = () => {
+    if (imRatio > 1) {
+      console.log('1= ', width / imRatio);
+      return width / imRatio;
+    } else if (imRatio < 1 && width > postWidth) {
+      console.log('4= ', width);
+      return height * 0.5;
+    }
+    console.log('44= ', width);
+    return height * 0.5;
+  };
+
   return (
-    <Container
-      onLayout={event => {
-        const {x, y, width, height} = event.nativeEvent.layout;
-        //console.log(height);
-        setPostHeight(height);
-      }}
-      onPress={onShow}
-      activeOpacity={1}>
+    <Container>
       <Header>
         <AvatarNameTimeRow>
           <Avatar url={avatar} />
@@ -63,48 +88,61 @@ export const PostCard = ({
           <TagText>{tag}</TagText>
         </Tag>
       </Header>
-
-      <ImagePost
-        source={{
-          uri: avatar,
-          height: isShown ? height / 2 : height / 4,
-        }}>
-        <LinearGradient
-          colors={['#00000000', '#283544']}
-          start={{x: 0.5, y: 0.3}}
-          end={{x: 0.5, y: 1}}
-          style={{
-            height: isShown ? height / 2 : height / 4,
-            width: '100%',
-          }}></LinearGradient>
-      </ImagePost>
-
-      <DescriptionBox>
-        {!isShown ? (
-          <Description>
-            {cutDescription(description)}
-            <SeeMoreText suppressHighlighting={true} onPress={onShow}>
-              See more
-            </SeeMoreText>
-          </Description>
-        ) : (
-          <Description>
-            {description}{' '}
-            <SeeMoreText suppressHighlighting={true} onPress={onShow}>
-              See less
-            </SeeMoreText>
-          </Description>
+      <TouchableOpacity
+        onPress={onShow}
+        activeOpacity={1}
+        style={{paddingBottom: 8}}>
+        {image && (
+          <ImageBackground
+            resizeMode={imRatio <= 0.6 ? 'contain' : 'cover'}
+            source={{
+              uri: image,
+            }}
+            style={{
+              width: '100%',
+              marginTop: 8,
+            }}>
+            <LinearGradient
+              colors={['#00000000', '#283544']}
+              start={{x: 0.5, y: 0.3}}
+              end={{x: 0.5, y: 1}}
+              style={{
+                height: getImageHeight(),
+                width: '100%',
+              }}></LinearGradient>
+          </ImageBackground>
         )}
-      </DescriptionBox>
+
+        <DescriptionBox>
+          {!isShown ? (
+            <Description>
+              {cutDescription(description)}
+              <SeeMoreText suppressHighlighting={true} onPress={onShow}>
+                See more
+              </SeeMoreText>
+            </Description>
+          ) : (
+            <Description>
+              {description}{' '}
+              <SeeMoreText suppressHighlighting={true} onPress={onShow}>
+                See less
+              </SeeMoreText>
+            </Description>
+          )}
+        </DescriptionBox>
+      </TouchableOpacity>
+      <Footer />
     </Container>
   );
 };
 
-const Container = styled.TouchableOpacity`
+const Container = styled.View`
   background-color: ${({theme}) => theme.colors.post.bg};
-  padding: 12px 0px;
+  padding: 8px 0px;
   margin-bottom: 8px;
 `;
+
+const Touch = styled.TouchableOpacity``;
 
 const Header = styled.View`
   flex-direction: row;
@@ -143,7 +181,7 @@ const Tag = styled.View`
 const TagText = styled.Text``;
 
 const ImagePost = styled.ImageBackground`
-  width: 100%;
+  //width: 100%;
   //height: ${height / 4}px;
   margin-top: 8px;
 `;

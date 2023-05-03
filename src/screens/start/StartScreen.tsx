@@ -1,5 +1,5 @@
-import {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {useEffect, useState} from 'react';
+import {StyleSheet, Text, View, Image, PixelRatio} from 'react-native';
 
 import {PropsHome} from 'navigation';
 
@@ -12,11 +12,7 @@ export const StartScreen = ({navigation}: Props) => {
     navigation.navigate('Home');
   }, []);
 
-  return (
-    <View>
-      <Text>Start</Text>
-    </View>
-  );
+  return <View></View>;
 };
 
 const styles = StyleSheet.create({});

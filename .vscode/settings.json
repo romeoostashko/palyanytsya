@@ -1,0 +1,7 @@
+{
+  "editor.tabSize": 4,
+  "editor.tabCompletion": "off",
+  "editor.useTabStops": true,
+  "terminal.integrated.tabStopWidth": 4,
+  "prettier.tabWidth": 2
+}
